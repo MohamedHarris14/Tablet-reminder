@@ -35,7 +35,7 @@ function sendReminder(time) {
 
 // Schedule jobs
 // Morning 9:00
-cron.schedule("0 9 * * *", () => {
+cron.schedule("39 11 * * *", () => {
   sendReminder("Morning 9:00 AM");
 }, { timezone: "Asia/Kolkata" });
 
@@ -51,3 +51,4 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
