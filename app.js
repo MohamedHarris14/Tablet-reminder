@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
 app.get("/test", async (req, res) => {
   try {
     await sendReminder("Manual Test Reminder");
-    res.send("✅ Test email sent successfully!");
+    res.send("✅ Test email sent successfully EMAIL_TO!");
   } catch (err) {
     res.send("❌ Error sending email: " + err.message);
   }
@@ -62,4 +62,5 @@ app.get("/test", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
 
