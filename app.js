@@ -10,16 +10,16 @@ const PORT = 8010;
 const transporter = nodemailer.createTransport({
   service: "gmail", // or "hotmail", "yahoo", etc.
   auth: {
-    user: EMAIL_USER,   // replace with your email
-    pass: EMAIL_PASS       // use App Password, not real password
+    user: process.env.EMAIL_USER,   // replace with your email
+    pass: process.env.EMAIL_PASS       // use App Password, not real password
   }
 });
 
 // Function to send reminder mail
 function sendReminder(time) {
   const mailOptions = {
-    from: EMAIL_USER,
-    to: EMAIL_TO,  // replace with recipient email
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_TO,  // replace with recipient email
     subject: "Tablet Reminder",
     text: `It's ${time}! tablet 💊 poda maranthuratha pondatti 😻 😘.`
   };
@@ -35,7 +35,7 @@ function sendReminder(time) {
 
 // Schedule jobs
 // Morning 9:00
-cron.schedule("39 11 * * *", () => {
+cron.schedule("47 11 * * *", () => {
   sendReminder("Morning 9:00 AM");
 }, { timezone: "Asia/Kolkata" });
 
@@ -45,10 +45,21 @@ cron.schedule("0 21 * * *", () => {
 }, { timezone: "Asia/Kolkata" });
 
 app.get("/", (req, res) => {
-  res.send("Tablet Reminder Service is running...");
+  res.render("index", { status: "Tablet Reminder Service is running ✅" });
 });
+
+app.get("/test", async (req, res) => {
+  try {
+    await sendReminder("Manual Test Reminder");
+    res.send("✅ Test email sent successfully!");
+  } catch (err) {
+    res.send("❌ Error sending email: " + err.message);
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
 
