@@ -6,21 +6,20 @@ const cron = require("node-cron");
 const app = express();
 const PORT = 8010;
 require("dotenv").config();
-
 // Configure your email transporter (use Gmail or any SMTP service)
 const transporter = nodemailer.createTransport({
   service: "gmail", // or "hotmail", "yahoo", etc.
   auth: {
-    user: process.env.EMAIL_USER,   // replace with your email
-    pass: process.env.EMAIL_PASS       // use App Password, not real password
+    user: "ahamedharris14@gmail.com",   // replace with your email
+    pass: "dvrzykyl qjaq xjuq"       // use App Password, not real password
   }
 });
 
 // Function to send reminder mail
 function sendReminder(time) {
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_TO,  // replace with recipient email
+    from: "ahamedharris14@gmail.com",
+    to: "ahamedharris14@gmail.com",  // replace with recipient email
     subject: "Tablet Reminder",
     text: `It's ${time}! tablet 💊 poda maranthuratha pondatti 😻 😘.`
   };
@@ -36,7 +35,7 @@ function sendReminder(time) {
 
 // Schedule jobs
 // Morning 9:00
-cron.schedule("47 11 * * *", () => {
+cron.schedule("0 9 * * *", () => {
   sendReminder("Morning 9:00 AM");
 }, { timezone: "Asia/Kolkata" });
 
@@ -45,8 +44,9 @@ cron.schedule("0 21 * * *", () => {
   sendReminder("Evening 9:00 PM");
 }, { timezone: "Asia/Kolkata" });
 
+
 app.get("/", (req, res) => {
-  res.render("index", { status: "Tablet Reminder Service is running ✅" });
+  res.send("Tablet Reminder Service is running...");
 });
 
 app.get("/test", async (req, res) => {
@@ -62,6 +62,3 @@ app.get("/test", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-
-
-
