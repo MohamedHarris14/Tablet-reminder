@@ -5,7 +5,7 @@ const cron = require("node-cron");
 
 const app = express();
 const PORT = 8010;
-require("dotenv").config();
+
 // Configure your email transporter (use Gmail or any SMTP service)
 const transporter = nodemailer.createTransport({
   service: "gmail", // or "hotmail", "yahoo", etc.
@@ -62,3 +62,4 @@ app.get("/test", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
